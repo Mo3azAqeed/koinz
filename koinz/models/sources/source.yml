@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: koinz
+    database: koinz
+    schema: swamp
+    tables:
+      - name: main
+        description: "Raw transactions data from Koinz"
+        columns:
+          - name: index_id
+            description: "Unique index for the record"
+          - name: order_id
+            description: "Unique order identifier"
+          - name: date
+            description: "Order date"
+          - name: customer_id
+            description: "Customer identifier"
+          - name: zone
+            description: "Geographical zone of the order"
+          - name: cuisine
+            description: "Cuisine type of the restaurant"
+          - name: store_name
+            description: "Name of the store"
+          - name: branch_name
+            description: "Name of the store's branch"
+          - name: promo_id
+            description: "Promotion ID applied to the order"
+          - name: promo_name
+            description: "Promotion name applied to the order"
+          - name: cashback_expiration_date
+            description: "Expiration date of earned cashback"
+          - name: gmv
+            description: "Gross Merchandise Value of the order"
+          - name: koinz_commission
+            description: "Commission taken by Koinz"
+          - name: cashback_gained
+            description: "Cashback earned on the order"
+          - name: cashback_remaining_snapshot
+            description: "Remaining cashback balance"
+          - name: discount
+            description: "Discount applied to the order"
+          - name: koinz_discount_share
+            description: "Koinz's share of the discount"
+          - name: merchant_discount_share
+            description: "Merchant's share of the discount"
+          - name: cashback_redeemed
+            description: "Cashback redeemed by the customer"
+          - name: koinz_cashback_share
+            description: "Koinz's share of the cashback"
+          - name: merchant_cashback_share
+            description: "Merchant's share of the cashback"
