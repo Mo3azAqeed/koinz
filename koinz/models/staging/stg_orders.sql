@@ -26,7 +26,14 @@ SELECT
     -- Cashback & Commission
     cashback_gained,
     cashback_remaining,
-    koinz_commission
+    cashback_redeemed,
+    koinz_commission,
+
+    -- Cost & Revenue Allocation
+    koinz_discount_share, 
+    merchant_discount_share,
+    koinz_cashback_share, 
+    merchant_cashback_share
 
 FROM {{ ref('source') }} 
 
