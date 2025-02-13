@@ -31,8 +31,27 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   koinz:
-    # Applies to all models under 'models/koinz/'
-    +database: koinz
-    +schema: staging
-    +materialized: table
-    +enabled: true  
+    staging:
+      +database: koinz
+      +schema: staging
+      +materialized: table
+      +enabled: true
+      +tags: ['staging']
+      
+    intermediate:
+      +database: koinz
+      +schema: intermediate
+      +materialized: table
+      +enabled: true
+      +tags: ['intermediate']
+      +docs:
+        node_color: "#682adb"
+
+    modeling:
+      +database: koinz
+      +schema: modeling
+      +materialized: table
+      +enabled: true
+      +tags: ['modeling']
+      +docs:
+        node_color: "#e6b530"
