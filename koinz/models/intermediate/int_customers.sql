@@ -33,7 +33,7 @@ SELECT
     order_date AS last_order_date,
     last_order_id,
     last_partner_id,
-
+    first_order_date,
     -- Retention Insights
     days_since_last_order,
 

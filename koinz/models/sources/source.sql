@@ -33,8 +33,8 @@ WITH source AS (
         gmv::NUMERIC AS order_total, -- Gross Merchandise Value
         cashback_gained::NUMERIC(10, 2) AS cashback_gained, -- Cashback earned by the user
         cashback_remaining_snapshot::NUMERIC(10,2) AS cashback_remaining, -- Remaining cashback balance
-        cashback_redeemed, -- Cashback used by the user
-        discount, -- Discount applied on the order
+        cashback_redeemed::NUMERIC(10, 2), -- Cashback used by the user
+        discount::NUMERIC(10, 2), -- Discount applied on the order
 
         -- Derived Metrics
         CASE 
@@ -44,10 +44,10 @@ WITH source AS (
 
         -- Commission & Cost Allocation
         koinz_commission::NUMERIC(10, 2) AS koinz_commission, -- Koinz's commission on the order
-        koinz_discount_share, -- Koinz's share of the discount
-        merchant_discount_share, -- Merchant's share of the discount
-        koinz_cashback_share, -- Koinz's share of the cashback
-        merchant_cashback_share, -- Merchant's share of the cashback
+        koinz_discount_share::NUMERIC(10, 2), -- Koinz's share of the discount
+        merchant_discount_share::NUMERIC(10, 2), -- Merchant's share of the discount
+        koinz_cashback_share::NUMERIC(10, 2), -- Koinz's share of the cashback
+        merchant_cashback_share::NUMERIC(10, 2), -- Merchant's share of the cashback
         
         -- Metadata
         CURRENT_TIMESTAMP AS created_at  -- Timestamp for tracking data freshness

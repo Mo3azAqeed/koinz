@@ -7,16 +7,17 @@
 WITH customer_metrics AS (
     SELECT 
         customer_id,
+        acquisition_campaign,
         MAX(last_order_date) AS last_order_date,  -- Recency
         total_orders AS order_count,             -- Frequency
         total_gross_revenue                      -- Monetary
     FROM {{ ref('int_customers') }}
-    GROUP BY customer_id, total_orders, total_gross_revenue
-
+    
     {% if is_incremental() %}
-    -- Process only customers with new data
-    WHERE last_order_date > (SELECT MAX(last_order_date) FROM {{ this }})
+    WHERE last_order_date > (SELECT MAX(last_order_date) FROM {{ this }})  -- Process only customers with new data
     {% endif %}
+
+    GROUP BY customer_id, total_orders, total_gross_revenue, acquisition_campaign
 ),
 
 rfm_percentiles AS (
@@ -25,9 +26,9 @@ rfm_percentiles AS (
         last_order_date,
         order_count,
         total_gross_revenue,
-
-        -- Calculate Percentiles**
-        PERCENT_RANK() OVER (ORDER BY last_order_date DESC) AS recency_rank,
+        acquisition_campaign,
+        -- Calculate Percentiles
+        PERCENT_RANK() OVER (ORDER BY last_order_date ) AS recency_rank,
         PERCENT_RANK() OVER (ORDER BY order_count) AS frequency_rank,
         PERCENT_RANK() OVER (ORDER BY total_gross_revenue) AS monetary_rank
 
@@ -40,7 +41,7 @@ rfm_scores AS (
         last_order_date,
         order_count,
         total_gross_revenue,
-
+        acquisition_campaign,
         CASE 
             WHEN recency_rank >= 0.70 THEN 'Active'
             WHEN recency_rank BETWEEN 0.30 AND 0.70 THEN 'Dormant'
@@ -64,6 +65,7 @@ rfm_scores AS (
 
 SELECT 
     customer_id,
+    acquisition_campaign,
     last_order_date,
     order_count,
     total_gross_revenue,
